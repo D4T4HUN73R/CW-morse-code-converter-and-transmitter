@@ -34,7 +34,7 @@ def play_tone(duration, frequency=800, sampling_rate=44100):
 
 # transmits the morse code with 800 Hz tones as dots (0.1) and dashes (three times a dot tone)
 def transmit(morse_text):
-    dot_tone = 0.1
+    dot_tone = 0.06
     dash_tone = dot_tone * 3
     for char in morse_text:
         if char == ".":
