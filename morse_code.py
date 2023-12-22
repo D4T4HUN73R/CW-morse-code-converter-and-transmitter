@@ -13,7 +13,7 @@ morse_code = {
     '7': '--...', '8': '---..', '9': '----.'
 }
 
-# converts any text input to morse code characters
+# converts any text input to morse code chars
 def convert_to_morse_code(text):
     morse_text = ""
     for char in text.upper():
@@ -23,7 +23,7 @@ def convert_to_morse_code(text):
             morse_text += " / "
     return morse_text.rstrip()
 
-# plays the 800 Hz base tone
+# plays the 800 Hz tone
 def play_tone(duration, frequency=800, sampling_rate=44100):
     t = np.linspace(0, duration, int(duration * sampling_rate), False)
     waveform = np.sin(frequency * t * 2 * np.pi)
@@ -41,11 +41,15 @@ def transmit(morse_text):
             play_tone(dot_tone, 800)
         elif char == "-":
             play_tone(dash_tone, 800)
+        elif char == " ":
+            time.sleep(dot_tone * 3) # space between the letters
         elif char == "/":
-            time.sleep(1)
+            time.sleep(dot_tone * 7) # space between the words
 
 if __name__ == '__main__':
-    morse_text = convert_to_morse_code(input("Input your morse text in normal letters: "))
+    message = input("Input your morse text in normal letters: ")
+    morse_text = convert_to_morse_code(message)
     print("Sound on, we'll transmit your morse code now!")
+    print(f"Original: {message}")
     print(f"Morse Code: {morse_text}")
     transmit(morse_text)
